@@ -1,6 +1,5 @@
 import * as React from 'react'
 import { connect } from 'react-redux'
-//import PropTypes from 'prop-types'
 import ChartJs from 'chart.js'
 import { CheckBox } from './CheckBox'
 
@@ -17,30 +16,6 @@ const datasets: any = []
 const axises: any = []
 
 class Chart extends React.Component<ChartProps> {
-   // constructor(props: ChartProps) {
-   //   super(props);
-   //   this.state = {
-   //     title: '',
-   //     info: {
-   //       file: [],
-   //       readingFile: false
-   //     },
-   //     chart: null,
-   //     linearScaleOptions: [{
-   //       id: 'y-axis-0',
-   //       display: true,
-   //       type: 'linear',
-   //       position: 'left',
-   //     }],
-   //     logarithmicScaleOptions: [{
-   //       id: 'y-axis-0',
-   //       display: true,
-   //       type: 'logarithmic',
-   //       position: 'left',
-   //     }],
-   //   }
-   // }
-
    state = {
       title: '',
       info: {
@@ -96,7 +71,6 @@ class Chart extends React.Component<ChartProps> {
    }
 
    componentDidMount() {
-      console.log('init chart')
       this.initChart()
    }
 
@@ -130,11 +104,9 @@ class Chart extends React.Component<ChartProps> {
    }
 
    initChart() {
-      let labels: any = []
       let op = 1.0
       let lineColor = ['rgba(0, 0, 0, ' + op + ')']
       let scaleOptions = this.props.info.chartSettings.scaleType === 'linear' ? this.state.linearScaleOptions : this.state.logarithmicScaleOptions
-
       let body = {
          type: 'line',
          data: {
@@ -145,9 +117,10 @@ class Chart extends React.Component<ChartProps> {
                   label: "Curve Data",
                   data: [1],
                   borderColor: lineColor,
-                  backgroundColor: ['rgba(255,255,255, 0.3)'],
+                  backgroundColor: ['rgba(255,255,255, 1.0)'],
                   pointStyle: 'circle' as 'circle',
-                  pointRadius: 3,
+                  pointRadius: 2,
+                  pointBackgroundColor:  'black',
                   fill: false,
                }
             ]
@@ -171,9 +144,6 @@ class Chart extends React.Component<ChartProps> {
          ctx = el.getContext("2d")
          this.setState({ chart: new ChartJs(ctx, body) })
       }
-   }
-
-   componentWillMount() {
    }
 
    render() {
@@ -208,11 +178,9 @@ class Chart extends React.Component<ChartProps> {
          let ourLabels = data.map(line => {
             return line[0]
          })
-         let ourPoints = data.map(line => {
-            if (parseFloat(line[curveIndex]) !== -999.25) {
-               return parseFloat(line[curveIndex])
-            }
-         })
+         let ourPoints = data.map((line: any )=> 
+            parseFloat(line[curveIndex]) !== -999.25 ? parseFloat(line[curveIndex]) : undefined)
+
 
          let factor = 5
          if (ourLabels.length > window.innerWidth / factor) {
@@ -233,8 +201,6 @@ class Chart extends React.Component<ChartProps> {
             })
             labelBuckets.forEach((bucket: any) => {
                let i = Math.round(bucket.length > 1 ? bucket.length / 2 : 0)
-               if (parseFloat(bucket[0]) == -999.25) {
-               }
                labelsMinMax.push(bucket[0])
                labelsMinMax.push(bucket[i])
             })
@@ -250,13 +216,13 @@ class Chart extends React.Component<ChartProps> {
                this.state.title = this.props.title
                this.state.chart.reset()
             }
-            ourLabels.map(label => {
+            ourLabels.map(label => 
                this.state.chart.data.labels.push(parseFloat(label))
-            })
+            )
             this.state.chart.data.datasets.forEach((set:any) => {
-               data.map(point => {
+               data.map(point => 
                   set.data.push(point)
-               })
+               )
                let ci = this.props.info.file.CURVE_INFORMATION[this.props.info.file.chartCurve]
                set.label = ci.mnem + ' ' + ci.unit
                let { r, g, b, rr, gg, bb } = this.getNewColors()
@@ -277,7 +243,6 @@ class Chart extends React.Component<ChartProps> {
             <div style={style}>
                <CheckBox />
                <canvas id="myChart" style={style}></canvas>
-               {/* {this.props.test()} */}
             </div>
          </div >
       )
@@ -303,12 +268,6 @@ const mapStateToProps = (state: AppState) => {
       }
    })
 }
-
-// Chart.propTypes = {
-//   title: PropTypes.string.isRequired,
-//   info: PropTypes.object.isRequired,
-//   //test: PropTypes.func.isRequired
-// }
 
 const connected = connect(
    mapStateToProps,

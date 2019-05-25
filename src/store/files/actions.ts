@@ -44,7 +44,6 @@ export const addSection = (section: string) => {
  }
 
  export const openFile = (file: File, rawData: Array<string>) => {
-   console.log(rawData)
    return ({
      type: fileConstants.OPEN_FILE,
      file: file,
@@ -64,7 +63,6 @@ export const addSection = (section: string) => {
     return { line, rawData }
   line = rawData.slice(0, i).replace(/\"/g, '')
   if (!line.length) {
-    console.log('empty')
     return { line, rawData }
   }
   if (!line || line.length <= 0) {
@@ -131,7 +129,6 @@ const getSections = (line : string) => {
 
 export const parseFile = (rawData: string):
 ThunkAction<Promise<void>, {}, {}, AnyAction> => {
-  console.log('parse')
 return async (dispatch: ThunkDispatch<{}, {}, AnyAction>): Promise<void> => {
    return new Promise<void>((resolve) => {
       if (!versionPassed && !checkVersion(rawData.slice(0))) {

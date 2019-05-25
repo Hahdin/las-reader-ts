@@ -8,7 +8,6 @@ interface LasInputProps {
   onChange: any
 }
 const LasInputFile:React.SFC<LasInputProps> = ( {filter,onChange} ) => {
-  console.log('input')
   const style = { float: 'left' as 'left', backgroundColor: 'lightgrey' as 'lightgrey' }
   return (
     <div>
@@ -33,7 +32,6 @@ const parse = (dispatch: any, data: any) =>{
 }
 const mapDispatchToProps = (dispatch: any) => ({
   onChange: (e: React.SyntheticEvent<{ files: Array<File> }>) => {
-    console.log('mapDispatch')
     const seek = () => {
       if (offset >= file.size) {
         return

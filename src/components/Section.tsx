@@ -1,5 +1,4 @@
 import React from 'react'
-import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 import {
   ListGroup,
@@ -29,13 +28,13 @@ const Section:React.SFC<SectionInterface> = ({ section, heading, onClickItem }) 
             let data = (value.data.length === 0) ? value.mnem : value.data
             data += (value.unit.length > 0) ? ` ( ${value.unit} )` : ''
             return (
-              <div style={{ fontSize: '12px' }}>
+              <div style={{ fontSize: '12px' }} key={`${i}`}>
                 {
                   (heading === 'Curve Information') ?
                       <ListGroupItem type={value.mnem} target={heading} onClick={(e:React.SyntheticEvent<any>) => onClickItem(e)} key={`${i}`} >
                       {`${value.desc}: ${data}`}
                     </ListGroupItem>
-                    : <ListGroupItem target={heading}>
+                    : <ListGroupItem target={heading} key={`${i}`}>
                       {`${value.desc}: ${data}`}
                     </ListGroupItem>
                 }
@@ -62,7 +61,6 @@ const mapStateToProps = (state: AppState, ownProps: any) => {
 const mapDispatchToProps = (dispatch: any) => ({
   
   onClickItem: (e: React.SyntheticEvent<{ attributes: Array<any> }>) => {
-    console.log('map 2')
     let values = Object.values(e.currentTarget.attributes)
     let ret = false
     values.forEach(v => {

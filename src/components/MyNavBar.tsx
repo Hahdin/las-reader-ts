@@ -3,39 +3,19 @@ import { connect } from 'react-redux';
 import {
   Navbar,
   Nav,
-  NavItem,
 } from "react-bootstrap";
-import { LinkContainer } from "react-router-bootstrap";
 const MyNavBar = () => {
   return (
-    // <Navbar bg="dark" expand="lg" variant="dark">
-    //     <Navbar.Brand>
-    //       <a href="/">LasView Home</a>
-    //     </Navbar.Brand>
-    //     <Navbar.Toggle  aria-controls="basic-navbar-nav" />
-    //   <Navbar.Collapse id="basic-navbar-nav">
-    //     <Nav className="mr-auto">
-    //       <Nav.Link href="/las">LAS Viewer</Nav.Link>
-    //     </Nav>
-    //     <Navbar.Text style={{ fontSize: '12px', marginRight: '10px' }}>
-    //       {'Welcome'}
-    //     </Navbar.Text>
-    //   </Navbar.Collapse>
-    // </Navbar>
-    <Navbar inverse fluid collapseOnSelect style={{boxShadow: '2px 2px 10px black'}}>
-      <Navbar.Header>
+    <Navbar bg="dark" expand="lg" variant="dark">
         <Navbar.Brand>
           <a href="/">LasView Home</a>
         </Navbar.Brand>
-        <Navbar.Toggle />
-      </Navbar.Header>
-      <Navbar.Collapse>
-        <Nav>
-          <LinkContainer to="/las">
-            <NavItem eventKey={1} > LAS Viewer </NavItem>
-          </LinkContainer>
+        <Navbar.Toggle  aria-controls="basic-navbar-nav" />
+      <Navbar.Collapse id="basic-navbar-nav">
+        <Nav className="mr-auto">
+          <Nav.Link href="/las">LAS Viewer</Nav.Link>
         </Nav>
-        <Navbar.Text pullRight style={{ fontSize: '12px', marginRight: '10px' }}>
+        <Navbar.Text style={{ fontSize: '12px', marginRight: '10px' }}>
           {'Welcome'}
         </Navbar.Text>
       </Navbar.Collapse>

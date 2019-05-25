@@ -1,5 +1,6 @@
 import { fileConstants, FileState, FileInterface } from './types';
 const ASCII = 'ASCII'
+const CURVE_INFORMATION = 'CURVE_INFORMATION'
 const initialState: FileState = {
    name: '',
    section: '',
@@ -12,7 +13,6 @@ const initialState: FileState = {
 
 
 export const files = (state = initialState, action: FileInterface) => {
-   console.log('reducer')
    switch (action.type) {
       case fileConstants.OPEN_FILE: {
          return {
@@ -59,7 +59,7 @@ export const files = (state = initialState, action: FileInterface) => {
          return {
             ...state,
             [ASCII]: { data: [] },
-            ['CURVE_INFORMATION']: {}
+            [CURVE_INFORMATION]: {}
          }
       case fileConstants.CURRENT_SECTION:
          return {

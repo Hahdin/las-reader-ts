@@ -1,50 +1,50 @@
 import React from 'react'
 import { connect } from 'react-redux'
 import {
-  ListGroup,
-  ListGroupItem,
+   ListGroup,
+   ListGroupItem,
 } from "react-bootstrap";
 import { chartCurve } from '../store/files/actions'
 import { AppState } from "../store";
-import {DataEntry} from '../store/files/types'
+import { DataEntry } from '../store/files/types'
 
 interface SectionInterface {
-  section: Array<DataEntry>
-  heading: string
-  onClickItem: any
+   section: Array<DataEntry>
+   heading: string
+   onClickItem: any
 }
 
 interface CustomProps {
-  vale: string;
-  section: string
+   vale: string;
+   section: string
 }
-const Section:React.SFC<SectionInterface> = ({ section, heading, onClickItem }) => {
-  //let { section, heading, onClickItem } = props
-  return (
-    <div >
-      <ListGroup>
-        {
-          Object.values(section).map((value: DataEntry, i: number) => {
-            let data = (value.data.length === 0) ? value.mnem : value.data
-            data += (value.unit.length > 0) ? ` ( ${value.unit} )` : ''
-            return (
-              <div style={{ fontSize: '12px' }} key={`${i}`}>
-                {
-                  (heading === 'Curve Information') ?
-                      <ListGroupItem type={value.mnem} target={heading} onClick={(e:React.SyntheticEvent<any>) => onClickItem(e)} key={`${i}`} >
-                      {`${value.desc}: ${data}`}
-                    </ListGroupItem>
-                    : <ListGroupItem target={heading} key={`${i}`}>
-                      {`${value.desc}: ${data}`}
-                    </ListGroupItem>
-                }
-              </div>
-            )
-          })
-        }
-      </ListGroup>
-    </div>
-  )
+const Section: React.SFC<SectionInterface> = ({ section, heading, onClickItem }) => {
+   //let { section, heading, onClickItem } = props
+   return (
+      <div >
+         <ListGroup>
+            {
+               Object.values(section).map((value: DataEntry, i: number) => {
+                  let data = (value.data.length === 0) ? value.mnem : value.data
+                  data += (value.unit.length > 0) ? ` ( ${value.unit} )` : ''
+                  return (
+                     <div style={{ fontSize: '12px' }} key={`${i}`}>
+                        {
+                           (heading === 'Curve Information') ?
+                              <ListGroupItem type={value.mnem} target={heading} onClick={(e: React.SyntheticEvent<any>) => onClickItem(e)} key={`${i}`} >
+                                 {`${value.desc}: ${data}`}
+                              </ListGroupItem>
+                              : <ListGroupItem target={heading} key={`${i}`}>
+                                 {`${value.desc}: ${data}`}
+                              </ListGroupItem>
+                        }
+                     </div>
+                  )
+               })
+            }
+         </ListGroup>
+      </div>
+   )
 }
 // Section.propTypes = {
 //   section: PropTypes.object.isRequired,
@@ -52,32 +52,32 @@ const Section:React.SFC<SectionInterface> = ({ section, heading, onClickItem }) 
 // }
 
 const mapStateToProps = (state: AppState, ownProps: any) => {
-  return ({
-    section: ownProps.section || {},
-    heading: ownProps.heading,
-  })
+   return ({
+      section: ownProps.section || {},
+      heading: ownProps.heading,
+   })
 }
 
 const mapDispatchToProps = (dispatch: any) => ({
-  
-  onClickItem: (e: React.SyntheticEvent<{ attributes: Array<any> }>) => {
-    let values = Object.values(e.currentTarget.attributes)
-    let ret = false
-    values.forEach(v => {
-      if (v.name === 'target' && v.nodeValue !== 'Curve Information')
-        ret = true
-    })
-    if (ret)
-      return
-    let val = Object.values(e.currentTarget.attributes).filter(a => a.name === 'type')
-    if (val.length === 0)
-      return
-    dispatch(chartCurve(val[0].nodeValue))
-  }
+
+   onClickItem: (e: React.SyntheticEvent<{ attributes: Array<any> }>) => {
+      let values = Object.values(e.currentTarget.attributes)
+      let ret = false
+      values.forEach(v => {
+         if (v.name === 'target' && v.nodeValue !== 'Curve Information')
+            ret = true
+      })
+      if (ret)
+         return
+      let val = Object.values(e.currentTarget.attributes).filter(a => a.name === 'type')
+      if (val.length === 0)
+         return
+      dispatch(chartCurve(val[0].nodeValue))
+   }
 })
 const connected = connect(
-  mapStateToProps,
-  mapDispatchToProps
+   mapStateToProps,
+   mapDispatchToProps
 )(Section)
 
 export { connected as Section };

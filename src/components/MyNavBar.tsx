@@ -1,31 +1,31 @@
 import * as React from "react";
 import { connect } from 'react-redux';
 import {
-  Navbar,
-  Nav,
+   Navbar,
+   Nav,
 } from "react-bootstrap";
 const MyNavBar = () => {
-  return (
-    <Navbar bg="dark" expand="lg" variant="dark">
-        <Navbar.Brand>
-          <a href="/">LasView Home</a>
-        </Navbar.Brand>
-        <Navbar.Toggle  aria-controls="basic-navbar-nav" />
-      <Navbar.Collapse id="basic-navbar-nav">
-        <Nav className="mr-auto">
-          <Nav.Link href="/las">LAS Viewer</Nav.Link>
-        </Nav>
-        <Navbar.Text style={{ fontSize: '12px', marginRight: '10px' }}>
-          {'Welcome'}
-        </Navbar.Text>
-      </Navbar.Collapse>
-    </Navbar>
-  )
+   return (
+      <Navbar bg="dark" expand="lg" variant="dark">
+         <Navbar.Brand>
+            <a href="/">LasView Home</a>
+         </Navbar.Brand>
+         <Navbar.Toggle aria-controls="basic-navbar-nav" />
+         <Navbar.Collapse id="basic-navbar-nav">
+            <Nav className="mr-auto">
+               <Nav.Link href="/las">LAS Viewer</Nav.Link>
+            </Nav>
+            <Navbar.Text style={{ fontSize: '12px', marginRight: '10px' }}>
+               {'Welcome'}
+            </Navbar.Text>
+         </Navbar.Collapse>
+      </Navbar>
+   )
 }
 export type AppState = {}
 const mapStateToProps = (state: AppState) => {
-  return {
-  };
+   return {
+   };
 }
 //
 /**

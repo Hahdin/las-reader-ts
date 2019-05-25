@@ -25,14 +25,14 @@ const Section:React.SFC<SectionInterface> = ({ section, heading, onClickItem }) 
     <div >
       <ListGroup>
         {
-          Object.values(section).map(value => {
+          Object.values(section).map((value: DataEntry, i: number) => {
             let data = (value.data.length === 0) ? value.mnem : value.data
             data += (value.unit.length > 0) ? ` ( ${value.unit} )` : ''
             return (
               <div style={{ fontSize: '12px' }}>
                 {
                   (heading === 'Curve Information') ?
-                    <ListGroupItem type={value.mnem} target={heading} onClick={(e:React.SyntheticEvent<any>) => onClickItem(e)} >
+                      <ListGroupItem type={value.mnem} target={heading} onClick={(e:React.SyntheticEvent<any>) => onClickItem(e)} key={`${i}`} >
                       {`${value.desc}: ${data}`}
                     </ListGroupItem>
                     : <ListGroupItem target={heading}>

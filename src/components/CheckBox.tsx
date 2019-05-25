@@ -19,9 +19,6 @@ const CheckBox:React.SFC<CheckBoxProps> = ({ value, onClick }) => {
     </div>
   )
 }
-// CheckBox.propTypes = {
-//   onClick: PropTypes.func.isRequired
-// }
 const mapStateToProps = (state: AppState) => {
   return ({
      value: state.chart.scaleType || 'linear'

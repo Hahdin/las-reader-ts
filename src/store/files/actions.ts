@@ -44,6 +44,7 @@ export const addAscii = (data: Array<Array<number>>) => {
 }
 
 export const openFile = (file: File, rawData: Array<string>) => {
+   versionPassed = false
    return ({
       type: fileConstants.OPEN_FILE,
       file: file,
@@ -131,9 +132,10 @@ export const parseFile = (rawData: string):
    ThunkAction<Promise<void>, {}, {}, AnyAction> => {
    return async (dispatch: ThunkDispatch<{}, {}, AnyAction>): Promise<void> => {
       return new Promise<void>((resolve) => {
+         console.log('parse')
          if (!versionPassed && !checkVersion(rawData.slice(0))) {
             alert(`*Only LAS Version 2.0 files are supported`)
-            reject(`*Only LAS Version 2.0 files are supported`)
+            return reject(`*Only LAS Version 2.0 files are supported`)
          }
          let data = getLine(rawData)
          let line = data.line
@@ -199,7 +201,8 @@ export const parseFile = (rawData: string):
                   t = t.trim()
                   if (t === 'YES') {
                      alert('WRAPPED Las files are not supported')
-                     throw Error('WRAPPED Las files are not supported')
+                     versionPassed = false
+                     return reject('WRAPPED Las files are not supported')
                   }
                }
                dispatch(addData(section, dataEntry))

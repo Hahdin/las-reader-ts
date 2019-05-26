@@ -46,8 +46,8 @@ const mapDispatchToProps = (dispatch: any) => ({
       let offset = 0
       const fr: FileReader = new FileReader()
       let file: File = fl[0]
-      dispatch(openFile(fl[0], []))
       fr.onload = (event: ProgressEvent) => {
+         dispatch(openFile(fl[0], []))
          parse(dispatch, fr.result)
             .then(pr => {
                offset += chunk
@@ -56,6 +56,14 @@ const mapDispatchToProps = (dispatch: any) => ({
             .catch(reason => {
                console.log(reason)
             })
+      }
+      fr.onerror = (error) =>{
+         console.log('error', error);
+         return
+      }
+      fr.onabort = (error) =>{
+         console.log('abort', error);
+         return
       }
       seek()
    }

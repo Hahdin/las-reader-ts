@@ -10,7 +10,6 @@ interface ChartProps {
    title: string,
    info: any,
 }
-
 const labels: any = []
 const datasets: any = []
 const axises: any = []
@@ -72,19 +71,6 @@ class Chart extends React.Component<ChartProps> {
 
    componentDidMount() {
       this.initChart()
-   }
-
-   pushData(label: string, data: any) {
-      return new Promise((resolve, reject) => {
-         if (!this.state.chart) {
-            return reject();
-         }
-         this.state.chart.data.labels.push(label)
-         this.state.chart.data.datasets.forEach((dataset: any) => {
-            dataset.data.push(data)
-         })
-         resolve(true)
-      })
    }
 
    popData() {
@@ -178,7 +164,7 @@ class Chart extends React.Component<ChartProps> {
          let ourLabels = data.map(line => {
             return line[0]
          })
-         let ourPoints = data.map((line: any )=> 
+         let ourPoints = data.map((line )=> 
             parseFloat(line[curveIndex]) !== -999.25 ? parseFloat(line[curveIndex]) : undefined)
 
 
@@ -189,7 +175,7 @@ class Chart extends React.Component<ChartProps> {
             let pointsBuckets = this.getBuckets(ourPoints, window.innerWidth / (factor * 2))
             let pointsMinMax: any = []
             let labelsMinMax: any = []
-            pointsBuckets.forEach((bucket:any) => {
+            pointsBuckets.forEach((bucket:Array<any>) => {
                let arMax = bucket.reduce((total:any, point:any) => {
                   return point === undefined ? total : total === undefined ? total : total > point ? total : point
                })
